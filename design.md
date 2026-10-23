@@ -3,7 +3,7 @@
 ---
 
 ## 1. Project Vision
-A clean, mobile‑responsive, single‑page web portal that showcases daily wholesale market prices, export‑grade seafood products, a photo gallery, and a B2B inquiry form. The UI should feel modern, ocean‑themed, and be built entirely with **HTML5**, **Tailwind CSS CDN**, **FontAwesome CDN**, and **vanilla JavaScript**.
+A mobile‑responsive, single‑page trade portal connecting buyers with Myanmar seafood, indicative wholesale references, export products, and a B2B inquiry demo. The UI uses a coastal market-board aesthetic and is built with **HTML5**, **Tailwind CSS CDN**, **FontAwesome CDN**, and **vanilla JavaScript**.
 
 ---
 
@@ -11,16 +11,17 @@ A clean, mobile‑responsive, single‑page web portal that showcases daily whol
 ### 2.1 Color Palette
 | Role | Hex |
 |------|-----|
-| **Primary Ocean Navy** (background, headers) | `#0a192f` |
-| **Secondary Deep Teal** (accent, hover) | `#0d9488` |
-| **Accent Gold** (call‑to‑action, badges) | `#f59e0b` |
-| **Background Slate** (page background) | `#f8fafc` |
+| **Primary Deep Estuary** (headers, inquiry panel) | `#102d35` |
+| **Secondary Sea Teal** (bands, accents) | `#17585a` |
+| **Accent Sand** (call‑to‑action, badges) | `#e8b765` |
+| **Background Sea Foam** (page background) | `#f7f6f0` |
 | **Card Background** (white surfaces) | `#ffffff` |
+| **Coral** (small highlights) | `#d97859` |
 
 ### 2.2 Typography
 - **Font Family**: System UI (fallback to `sans-serif`).
-- **Headings**: `font-bold` with Tailwind size scale (`text-4xl` for hero, `text-2xl` for sections).
-- **Body**: `text-base` with `text-gray-800` for readability.
+- **Headings**: Editorial serif display type paired with system UI body text.
+- **Body**: System UI with muted slate-green supporting text for readability.
 
 ### 2.3 Icons
 - FontAwesome 6.4.0 CDN for social, navigation, and badge icons.
@@ -29,7 +30,7 @@ A clean, mobile‑responsive, single‑page web portal that showcases daily whol
 | Asset | Description | URL |
 |-------|-------------|-----|
 | **Hero Banner** | Oceanic fishery background | `https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1600&q=80` |
-| **Export Products** | Rohu, Hilsa, Tiger Sea Prawn, Soft‑Shell Crab, Grouper, Freshwater Prawn | See spec lines 31‑36 for URLs |
+| **Export Products** | Rohu, Hilsa, Tiger Sea Prawn, Soft‑Shell Crab, Grouper, Freshwater Prawn | See `index.html`; the broken crab image asset was replaced with a working Unsplash image. |
 | **Gallery** | Aquaculture farming, processing, cold storage, marine harvesting | See spec lines 38‑41 for URLs |
 
 ---
@@ -37,13 +38,13 @@ A clean, mobile‑responsive, single‑page web portal that showcases daily whol
 ## 3. UI Components
 | Component | Description | Tailwind/JS Details |
 |-----------|-------------|---------------------|
-| **Top Navigation Bar** | Fixed, dark navy background, brand logo (🐟), links: Home, Market Prices, Export Products, Gallery, B2B Inquiry. Hamburger toggles a vertical menu on mobile. | `flex`, `items-center`, `justify-between`; JS toggles `hidden`/`block` on `<ul>`.
-| **Hero Section** | Full‑width background image with gradient overlay, large heading, subtitle, two CTA buttons. | `bg-cover`, `bg-center`, `bg-gradient-to-r`; Buttons use `bg-gold` hover effects.
-| **Price Tracker Table** | Responsive table with live search box; columns: Product (Burmese/English), Category, Size/Spec, Wholesale Price, Export Grade. | Tailwind `overflow-x-auto`; JS filters rows based on search input (case‑insensitive).
-| **Export Product Card Grid** | 2‑column (mobile) / 3‑column (tablet) / 4‑column (desktop) cards; each shows thumbnail, badge tags, short desc, price tier, "View Details" button. | `grid` layout with `gap-6`; Modal popup populated via data attributes.
-| **Product Detail Modal** | Centered overlay with larger image, specifications list, and close icon. | Hidden by default (`hidden`), shown by adding `flex` via JS.
-| **Photo Gallery** | Card layout of 4‑6 images; clicking opens a lightbox preview. | Lightbox uses a full‑screen fixed div with fade‑in transition.
-| **B2B Inquiry Form** | Fields: Full Name, Company, Email, Country, Product Interested, Estimated Quantity. Submit triggers client‑side validation and toast confirmation. | `grid` form layout; validation with simple JS checks; toast uses Tailwind animation utilities.
+| **Top Navigation Bar** | Sticky deep-estuary header, fish-mark wordmark, market/product/gallery links, and trade CTA. Mobile menu expands vertically. | Responsive flex layout; JavaScript toggles the menu and updates `aria-expanded`.
+| **Hero Section** | Coastal photo with dark ocean overlay, editorial headline, market/product CTAs, and a trade-introduction panel. | Responsive two-column layout collapses on mobile.
+| **Price Tracker Table** | Searchable wholesale reference table with Burmese species names, category, typical size, MMK/viss price, and grade availability. References are marked indicative, not live quotes. | Horizontally scrollable table; JavaScript filters rows case-insensitively.
+| **Export Product Card Grid** | Six seafood cards in a 1-column mobile / 2-column tablet / 3-column desktop grid, with product image, catch-format tag, indicative price, and details action. | JavaScript reads product data attributes to populate the details dialog.
+| **Product Detail Modal** | Centered product dialog with image, format, description, indicative price, and inquiry link. Escape, backdrop, and close button dismiss it; keyboard focus stays within the dialog. | Hidden by default and opened from product actions.
+| **Photo Gallery** | Four labeled supply-chain images in an asymmetric grid; clicking opens a keyboard-operable lightbox preview. | Responsive CSS grid with labeled buttons.
+| **B2B Inquiry Form** | Required buyer/company/product fields with native validation and an honest demo-only confirmation; submissions are not transmitted or stored. | Accessible status toast reports demo behavior.
 
 ---
 
@@ -51,9 +52,9 @@ A clean, mobile‑responsive, single‑page web portal that showcases daily whol
 ### 4.1 Desktop Layout
 ```
 +-----------------------------------------------------------+
-| NAVBAR (fixed)                                            |
+| NAVBAR (sticky, trade CTA)                                |
 +-----------------------------------------------------------+
-| HERO (full‑width image, heading, two CTA buttons)         |
+| HERO (coastal image, trade intro, product/prices CTAs)    |
 +-----------------------------------------------------------+
 | SECTION: Daily Market Prices (search + table)            |
 +-----------------------------------------------------------+
@@ -67,11 +68,11 @@ A clean, mobile‑responsive, single‑page web portal that showcases daily whol
 +-----------------------------------------------------------+
 ```
 ### 4.2 Mobile Layout (breakpoint <640px)
-- Navigation collapses to hamburger.
-- Hero height reduces, CTAs stacked.
-- Table becomes a vertical list with key‑value rows.
-- Card grids collapse to 1‑column.
-- Gallery images stack vertically.
+- Navigation collapses to an accessible menu toggle.
+- Hero panel stacks and CTAs wrap or stack.
+- Market table remains horizontally scrollable for clear column labels.
+- Product cards collapse to 1‑column.
+- Gallery adapts to a compact two-column mosaic.
 
 ---
 

@@ -3,276 +3,454 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Myanmar Fishery Portal & Trade Platform</title>
-  <meta name="description" content="Mobile‑responsive portal for daily market prices, export products, gallery and B2B inquiry for Myanmar fishery industry." />
-  <!-- Tailwind CSS CDN -->
+  <title>Myanmar Fishery | Seafood, sourced with care</title>
+  <meta name="description" content="Discover Myanmar seafood, indicative wholesale market prices, export-ready products and direct trade inquiries." />
+  <meta name="theme-color" content="#102d35" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pb3c6+KX5X7Z5eK0V9OSJWcM9lfCx4NUeeV8IQmSFbXN6cK2qeDLoJEkQ1bnC5SR5X4H+TzBQvmK9R7BXkmw+A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
   <style>
-    /* Custom colors used throughout the site */
-    .bg-primary { background-color: #0a192f; }
-    .bg-secondary { background-color: #0d9488; }
-    .bg-accent { background-color: #f59e0b; }
-    .text-primary { color: #0a192f; }
-    .text-accent { color: #f59e0b; }
-    .bg-card { background-color: #ffffff; }
+    :root {
+      --ink: #102d35;
+      --ocean: #17585a;
+      --sea-glass: #dcebe5;
+      --foam: #f7f6f0;
+      --sand: #e8b765;
+      --coral: #d97859;
+      --muted: #647678;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; background: var(--foam); color: var(--ink); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    .shell { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .site-header { position: sticky; top: 0; z-index: 20; background: rgba(16,45,53,.97); color: #f8f6ed; border-bottom: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(12px); }
+    .nav-wrap { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 14px; letter-spacing: .12em; font-weight: 800; white-space: nowrap; }
+    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; color: var(--ink); background: var(--sand); border-radius: 50% 50% 48% 16%; transform: rotate(-8deg); font-size: 18px; }
+    .brand-mark i { transform: rotate(8deg); }
+    .nav-links { display: flex; align-items: center; gap: 27px; margin: 0; padding: 0; list-style: none; color: rgba(248,246,237,.78); font-size: 13px; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--sand); }
+    .nav-cta { padding: 11px 16px; color: var(--ink); background: var(--sand); border-radius: 3px; font-size: 12px; font-weight: 800; letter-spacing: .03em; }
+    .menu-toggle { display: none; border: 1px solid rgba(255,255,255,.25); border-radius: 3px; padding: 9px 12px; color: white; background: transparent; }
+    .hero { position: relative; overflow: hidden; min-height: 600px; color: #fff; background: var(--ink); }
+    .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,39,46,.96) 0%, rgba(12,39,46,.86) 40%, rgba(12,39,46,.18) 100%), url("https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1800&q=85") center 54% / cover; }
+    .hero::after { content: ""; position: absolute; width: 580px; height: 580px; right: -240px; bottom: -380px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; box-shadow: 0 0 0 42px rgba(255,255,255,.035), 0 0 0 86px rgba(255,255,255,.025); }
+    .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.12fr .88fr; align-items: center; gap: 52px; min-height: 600px; padding-block: 72px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--sand); font-size: 11px; letter-spacing: .19em; font-weight: 800; text-transform: uppercase; }
+    .eyebrow::before { content: ""; display: inline-block; width: 27px; height: 1px; background: currentColor; }
+    h1 { max-width: 680px; margin: 23px 0 18px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(48px, 6.2vw, 78px); font-weight: 500; letter-spacing: -.045em; line-height: .99; }
+    h1 em { color: var(--sand); font-weight: 500; }
+    .hero-copy { max-width: 485px; margin: 0; color: rgba(255,255,255,.77); font-size: 16px; line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 31px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 20px; border: 1px solid transparent; border-radius: 3px; font-size: 12px; font-weight: 800; transition: transform .2s, background .2s; }
+    .button:hover { transform: translateY(-2px); }
+    .button-gold { color: var(--ink); background: var(--sand); }
+    .button-outline { color: #fff; border-color: rgba(255,255,255,.4); background: rgba(255,255,255,.04); }
+    .hero-note { display: flex; align-items: center; gap: 12px; margin-top: 40px; color: rgba(255,255,255,.72); font-size: 11px; letter-spacing: .05em; }
+    .hero-note i { color: var(--sand); }
+    .hero-card { align-self: end; justify-self: end; width: min(100%, 350px); margin-bottom: 4px; padding: 23px 24px; border: 1px solid rgba(255,255,255,.22); background: rgba(13,43,49,.72); backdrop-filter: blur(12px); }
+    .hero-card-label { color: var(--sand); font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    .hero-card h2 { margin: 12px 0 7px; font: 500 23px/1.2 Georgia, serif; }
+    .hero-card p { margin: 0; color: rgba(255,255,255,.7); font-size: 12px; line-height: 1.7; }
+    .hero-card-link { display: flex; justify-content: space-between; align-items: center; margin-top: 19px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 11px; font-weight: 700; }
+    .trust-strip { color: #fff; background: var(--ocean); }
+    .trust-inner { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .trust-item { display: flex; align-items: center; gap: 14px; min-height: 86px; padding: 18px 27px; border-right: 1px solid rgba(255,255,255,.16); }
+    .trust-item:first-child { padding-left: 0; }
+    .trust-item:last-child { border: 0; }
+    .trust-icon { color: var(--sand); font-size: 18px; }
+    .trust-item strong { display: block; font-size: 12px; letter-spacing: .02em; }
+    .trust-item span { display: block; margin-top: 4px; color: rgba(255,255,255,.64); font-size: 10px; }
+    .section { padding-block: 90px; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 26px; margin-bottom: 31px; }
+    .section-kicker { margin-bottom: 10px; color: var(--ocean); font-size: 10px; letter-spacing: .19em; font-weight: 800; text-transform: uppercase; }
+    .section-title { margin: 0; font: 500 clamp(34px, 4vw, 47px)/1.08 Georgia, "Times New Roman", serif; letter-spacing: -.035em; }
+    .section-desc { max-width: 405px; margin: 0 0 3px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .market-section { background: var(--foam); }
+    .market-tools { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 14px; }
+    .market-caption { color: var(--muted); font-size: 11px; }
+    .search-box { display: flex; align-items: center; gap: 10px; width: min(100%, 310px); padding: 11px 14px; border: 1px solid #d7dfd9; background: #fff; }
+    .search-box i { color: var(--ocean); }
+    .search-box input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 12px; }
+    .table-wrap { overflow-x: auto; border: 1px solid #e3e6df; background: #fff; }
+    .market-table { width: 100%; border-collapse: collapse; text-align: left; }
+    .market-table th { padding: 14px 19px; color: rgba(255,255,255,.74); background: var(--ink); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+    .market-table td { padding: 16px 19px; border-bottom: 1px solid #edf0eb; color: #536668; font-size: 12px; white-space: nowrap; }
+    .market-table tr:last-child td { border: 0; }
+    .market-table td:first-child { color: var(--ink); font-weight: 750; }
+    .market-table td:first-child span { display: block; margin-top: 3px; color: #849292; font-size: 10px; font-weight: 400; }
+    .price { color: var(--ink) !important; font-weight: 800; }
+    .grade { display: inline-flex; align-items: center; gap: 6px; color: var(--ocean); font-size: 10px; font-weight: 700; }
+    .grade::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #4c9a7b; }
+    .grade.pending { color: #8b7045; }
+    .grade.pending::before { background: var(--sand); }
+    .market-footnote { display: flex; align-items: flex-start; gap: 8px; margin-top: 12px; color: #758587; font-size: 10px; line-height: 1.6; }
+    .market-footnote i { margin-top: 2px; color: var(--coral); }
+    .products-section { background: #eaf0e9; }
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .product-card { overflow: hidden; background: #fff; border: 1px solid rgba(16,45,53,.07); transition: transform .25s, box-shadow .25s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 35px rgba(16,45,53,.1); }
+    .product-image { position: relative; height: 205px; overflow: hidden; background: #d7e2dc; }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .product-card:hover .product-image img { transform: scale(1.04); }
+    .product-tag { position: absolute; top: 14px; left: 14px; padding: 7px 9px; color: var(--ink); background: var(--sand); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .product-info { padding: 18px 19px 19px; }
+    .product-info h3 { margin: 0 0 6px; font: 500 22px/1.2 Georgia, serif; }
+    .product-info p { min-height: 38px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .product-bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 17px; padding-top: 13px; border-top: 1px solid #edf0eb; }
+    .product-price { color: var(--ocean); font-size: 12px; font-weight: 800; }
+    .product-price small { display: block; margin-top: 3px; color: #859291; font-size: 9px; font-weight: 500; }
+    .detail-button { display: inline-flex; align-items: center; gap: 7px; padding: 8px 0; border: 0; color: var(--ink); background: transparent; cursor: pointer; font-size: 10px; font-weight: 800; }
+    .detail-button i { color: var(--coral); }
+    .sourcing-band { position: relative; overflow: hidden; padding: 40px 0; color: white; background: var(--ocean); }
+    .sourcing-band::after { content: ""; position: absolute; top: -115px; right: 9%; width: 290px; height: 290px; border: 1px solid rgba(255,255,255,.13); border-radius: 50%; box-shadow: 0 0 0 25px rgba(255,255,255,.025), 0 0 0 50px rgba(255,255,255,.025); }
+    .sourcing-inner { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 35px; }
+    .sourcing-inner p { max-width: 620px; margin: 8px 0 0; color: rgba(255,255,255,.72); font-size: 12px; line-height: 1.8; }
+    .sourcing-inner h2 { margin: 0; font: 500 31px/1.15 Georgia, serif; }
+    .sourcing-inner .button { flex-shrink: 0; }
+    .gallery-section { background: var(--foam); }
+    .gallery-grid { display: grid; grid-template-columns: 1.25fr 1fr 1fr; grid-template-rows: 190px 190px; gap: 13px; }
+    .gallery-item { position: relative; overflow: hidden; padding: 0; border: 0; background: #cbd8d2; cursor: pointer; text-align: left; }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item::after { content: ""; position: absolute; inset: 40% 0 0; background: linear-gradient(transparent, rgba(8,30,35,.72)); }
+    .gallery-label { position: absolute; z-index: 1; right: 15px; bottom: 14px; left: 15px; color: #fff; font-size: 11px; font-weight: 700; }
+    .gallery-label i { float: right; color: var(--sand); }
+    .inquiry-section { color: white; background: var(--ink); }
+    .inquiry-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 90px; align-items: start; }
+    .inquiry-section .section-kicker { color: var(--sand); }
+    .inquiry-section .section-title { max-width: 420px; }
+    .inquiry-copy { max-width: 390px; margin: 18px 0 26px; color: rgba(255,255,255,.66); font-size: 12px; line-height: 1.9; }
+    .contact-note { display: flex; gap: 11px; align-items: flex-start; padding-top: 17px; border-top: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.68); font-size: 10px; line-height: 1.7; }
+    .contact-note i { margin-top: 2px; color: var(--sand); }
+    .inquiry-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 25px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.045); }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: rgba(255,255,255,.76); font-size: 10px; font-weight: 700; }
+    .field input, .field select { width: 100%; min-height: 43px; padding: 0 12px; border: 1px solid rgba(255,255,255,.16); border-radius: 0; outline: none; color: #fff; background: #173941; font-size: 11px; }
+    .field input:focus, .field select:focus { border-color: var(--sand); }
+    .field input::placeholder { color: rgba(255,255,255,.42); }
+    .field select option { color: var(--ink); }
+    .form-submit { grid-column: 1 / -1; width: 100%; margin-top: 3px; border: 0; cursor: pointer; }
+    .form-disclaimer { grid-column: 1 / -1; margin: -5px 0 0; color: rgba(255,255,255,.5); font-size: 9px; line-height: 1.6; }
+    .site-footer { padding: 22px 0; color: rgba(255,255,255,.6); background: #0b2329; font-size: 10px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+    .footer-brand { color: white; font-weight: 800; letter-spacing: .1em; }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(5,20,24,.78); }
+    .modal-backdrop[hidden] { display: none; }
+    .modal-card { position: relative; overflow: hidden; width: min(540px, 100%); max-height: 90vh; overflow-y: auto; color: var(--ink); background: var(--foam); }
+    .modal-card > img { display: block; width: 100%; height: 245px; object-fit: cover; }
+    .modal-content { padding: 25px; }
+    .modal-content h2 { margin: 0 0 8px; font: 500 30px Georgia, serif; }
+    .modal-content p { color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .modal-content .modal-price { color: var(--ocean); font-weight: 800; }
+    .modal-close { position: absolute; z-index: 2; top: 12px; right: 12px; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; color: white; background: rgba(16,45,53,.85); cursor: pointer; }
+    .lightbox-image { max-width: min(1100px, 92vw); max-height: 84vh; object-fit: contain; }
+    .toast { position: fixed; right: 24px; bottom: 24px; z-index: 60; max-width: min(380px, calc(100% - 48px)); padding: 14px 18px; color: white; background: var(--ocean); box-shadow: 0 10px 30px rgba(0,0,0,.2); font-size: 12px; }
+    .toast[hidden] { display: none; }
+    :focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+    @media (max-width: 800px) {
+      .nav-links { gap: 15px; }
+      .nav-cta { display: none; }
+      .hero-inner { grid-template-columns: 1fr .68fr; gap: 22px; }
+      .hero-card { padding: 18px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .inquiry-layout { gap: 40px; }
+    }
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 36px, 520px); }
+      .nav-wrap { min-height: 66px; flex-wrap: wrap; gap: 0; padding-block: 12px; }
+      .brand { font-size: 12px; }
+      .menu-toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; }
+      .nav-links { display: none; flex-direction: column; align-items: stretch; gap: 0; width: 100%; padding: 10px 0 3px; }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 12px 3px; border-top: 1px solid rgba(255,255,255,.1); }
+      .hero, .hero-inner { min-height: 0; }
+      .hero::before { background-image: linear-gradient(90deg, rgba(12,39,46,.94), rgba(12,39,46,.72)), url("https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80"); }
+      .hero-inner { display: block; padding-block: 76px 38px; }
+      h1 { max-width: 500px; font-size: clamp(47px, 13vw, 68px); }
+      .hero-copy { font-size: 14px; }
+      .hero-note { margin-top: 27px; }
+      .hero-card { width: 100%; margin-top: 38px; }
+      .trust-inner { grid-template-columns: 1fr; }
+      .trust-item, .trust-item:first-child { min-height: 68px; padding: 13px 0; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.16); }
+      .trust-item:last-child { border-bottom: 0; }
+      .section { padding-block: 66px; }
+      .section-heading { display: block; margin-bottom: 24px; }
+      .section-desc { margin-top: 13px; }
+      .market-tools { align-items: stretch; flex-direction: column; }
+      .search-box { width: 100%; }
+      .market-table th, .market-table td { padding: 13px 14px; }
+      .product-grid { grid-template-columns: 1fr; }
+      .product-image { height: 220px; }
+      .sourcing-inner { align-items: flex-start; flex-direction: column; }
+      .sourcing-inner h2 { font-size: 27px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 210px 150px 150px; }
+      .gallery-item:first-child { grid-column: 1 / -1; grid-row: auto; }
+      .inquiry-layout { grid-template-columns: 1fr; gap: 30px; }
+      .inquiry-form { padding: 18px; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (max-width: 400px) {
+      .inquiry-form { grid-template-columns: 1fr; }
+      .field.full, .form-submit, .form-disclaimer { grid-column: auto; }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .hero-actions .button { width: 100%; }
+    }
   </style>
 </head>
-<body class="bg-slate-100 text-gray-800 font-sans">
-  <!-- Top Navigation Bar -->
-  <header class="bg-primary text-white fixed w-full z-10 shadow">
-    <nav class="max-w-7xl mx-auto flex items-center justify-between p-4">
-      <div class="flex items-center space-x-2">
-        <span class="text-2xl">🐟</span>
-        <span class="font-bold text-xl">MYANMAR FISHERY</span>
-      </div>
-      <button id="mobile-menu-btn" class="sm:hidden focus:outline-none" aria-label="Toggle menu">
-        <i class="fas fa-bars text-2xl"></i>
+<body>
+  <header class="site-header">
+    <nav class="shell nav-wrap" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Myanmar Fishery home">
+        <span class="brand-mark" aria-hidden="true"><i class="fa-solid fa-fish"></i></span>
+        <span>MYANMAR FISHERY</span>
+      </a>
+      <button class="menu-toggle" id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i><span>Menu</span>
       </button>
-      <ul id="nav-links" class="hidden sm:flex space-x-6">
-        <li><a href="#" class="hover:text-accent" data-section="hero">Home</a></li>
-        <li><a href="#prices" class="hover:text-accent">Market Prices</a></li>
-        <li><a href="#products" class="hover:text-accent">Export Products</a></li>
-        <li><a href="#gallery" class="hover:text-accent">Gallery</a></li>
-        <li><a href="#inquiry" class="hover:text-accent">B2B Inquiry</a></li>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#prices">Market prices</a></li>
+        <li><a href="#products">Our catch</a></li>
+        <li><a href="#gallery">From the water</a></li>
       </ul>
+      <a class="nav-cta" href="#inquiry">Start a trade inquiry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
     </nav>
   </header>
 
-  <main class="pt-20">
-    <!-- Hero Section -->
-    <section id="hero" class="relative bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1600&q=80');">
-      <div class="bg-gradient-to-r from-primary/80 to-secondary/70 inset-0 absolute"></div>
-      <div class="relative max-w-4xl mx-auto py-32 text-center text-white">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Myanmar Fishery Portal & Trade Platform</h1>
-        <p class="text-xl mb-8">Connecting Local Aquaculture & Marine Fisheries to Global Markets.</p>
-        <div class="flex justify-center space-x-4">
-          <a href="#prices" class="bg-accent text-white px-6 py-3 rounded hover:bg-yellow-600 transition">View Daily Prices</a>
-          <a href="#inquiry" class="bg-white text-primary px-6 py-3 rounded hover:bg-gray-200 transition">Send Trade Inquiry</a>
+  <main>
+    <section class="hero" id="home">
+      <div class="shell hero-inner">
+        <div>
+          <span class="eyebrow">Myanmar · Bay of Bengal · Andaman Sea</span>
+          <h1>Good seafood.<br />Rooted in <em>Myanmar.</em></h1>
+          <p class="hero-copy">A direct connection to the people, waters and harvests behind Myanmar seafood. Explore market references and find the right catch for your next order.</p>
+          <div class="hero-actions">
+            <a class="button button-gold" href="#products">Explore our catch <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="button button-outline" href="#prices">See market prices</a>
+          </div>
+          <div class="hero-note"><i class="fa-solid fa-water" aria-hidden="true"></i><span>From inland aquaculture to the Andaman coast</span></div>
+        </div>
+        <aside class="hero-card" aria-label="Trade platform overview">
+          <span class="hero-card-label">A closer connection</span>
+          <h2>From local waters to your market.</h2>
+          <p>Browse species, compare indicative market references, and tell us what your business is looking for.</p>
+          <a class="hero-card-link" href="#inquiry"><span>Talk to our trade desk</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="What the portal offers">
+      <div class="shell trust-inner">
+        <div class="trust-item"><i class="trust-icon fa-solid fa-fish-fins" aria-hidden="true"></i><div><strong>Freshwater & marine</strong><span>A varied catch from across Myanmar</span></div></div>
+        <div class="trust-item"><i class="trust-icon fa-solid fa-scale-balanced" aria-hidden="true"></i><div><strong>Market transparency</strong><span>Wholesale references, clearly presented</span></div></div>
+        <div class="trust-item"><i class="trust-icon fa-solid fa-earth-asia" aria-hidden="true"></i><div><strong>Built for trade</strong><span>Start a conversation about your order</span></div></div>
+      </div>
+    </section>
+
+    <section class="section market-section" id="prices">
+      <div class="shell">
+        <div class="section-heading">
+          <div><div class="section-kicker">At a glance · wholesale</div><h2 class="section-title">Market board</h2></div>
+          <p class="section-desc">A quick reference for common species. Actual prices move with season, size, landing location and order volume.</p>
+        </div>
+        <div class="market-tools">
+          <span class="market-caption">Indicative market references · MMK per viss</span>
+          <label class="search-box"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input type="search" id="price-search" placeholder="Search species or grade..." aria-label="Search market prices" /></label>
+        </div>
+        <div class="table-wrap">
+          <table class="market-table">
+            <thead><tr><th>Species</th><th>Category</th><th>Typical size</th><th>Reference price · MMK/viss</th><th>Export grade</th></tr></thead>
+            <tbody id="price-table-body">
+              <tr><td>Rohu <span>ငါးမြစ်ချင်း</span></td><td>Freshwater</td><td>30–35 cm</td><td class="price">8,000</td><td><span class="grade">Available</span></td></tr>
+              <tr><td>Hilsa <span>ငါးသလောက်</span></td><td>Marine</td><td>25–30 cm</td><td class="price">12,000</td><td><span class="grade pending">Check availability</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="market-footnote"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>These are indicative sample references, not live quotes. Please confirm current availability, specifications and pricing through a trade inquiry.</span></p>
+      </div>
+    </section>
+
+    <section class="section products-section" id="products">
+      <div class="shell">
+        <div class="section-heading">
+          <div><div class="section-kicker">Sourced from Myanmar waters</div><h2 class="section-title">A catch worth knowing.</h2></div>
+          <p class="section-desc">From freshwater favorites to premium marine species, explore the products available for trade. Ask us about size, processing and seasonality.</p>
+        </div>
+        <div class="product-grid">
+          <article class="product-card" data-name="Rohu" data-badge="Frozen" data-price="Indicative: USD 3.50 / kg" data-desc="A freshwater staple with a mild flavor and versatile, firm flesh. Processing and size specifications can be discussed for your order." data-image="https://images.unsplash.com/photo-1534483509719-3feaee7c30da?auto=format&fit=crop&w=900&q=85">
+            <div class="product-image"><img src="https://images.unsplash.com/photo-1534483509719-3feaee7c30da?auto=format&fit=crop&w=700&q=80" alt="Fresh fish displayed at a market" loading="lazy" /><span class="product-tag">Freshwater · Frozen</span></div>
+            <div class="product-info"><h3>Rohu</h3><p>A freshwater favorite for versatile foodservice and processing.</p><div class="product-bottom"><span class="product-price">USD 3.50 / kg<small>Indicative reference</small></span><button class="detail-button" type="button" data-open-product>Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></div>
+          </article>
+          <article class="product-card" data-name="Hilsa" data-badge="Seasonal" data-price="Indicative: USD 5.00 / kg" data-desc="A much-loved regional fish known for its distinctive rich flavor. Seasonal availability and exact sizing should be confirmed before placing an order." data-image="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=85">
+            <div class="product-image"><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=700&q=80" alt="Whole fish prepared for sale" loading="lazy" /><span class="product-tag">Marine · Seasonal</span></div>
+            <div class="product-info"><h3>Hilsa</h3><p>Distinctive, rich flavor; availability varies with the season.</p><div class="product-bottom"><span class="product-price">USD 5.00 / kg<small>Indicative reference</small></span><button class="detail-button" type="button" data-open-product>Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></div>
+          </article>
+          <article class="product-card" data-name="Tiger Sea Prawn" data-badge="Frozen" data-price="Indicative: USD 8.00 / kg" data-desc="A premium marine prawn for export and foodservice. Ask about count size, glazing, packing format and current availability." data-image="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=900&q=85">
+            <div class="product-image"><img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=700&q=80" alt="Tiger prawns prepared for sale" loading="lazy" /><span class="product-tag">Marine · Frozen</span></div>
+            <div class="product-info"><h3>Tiger Sea Prawn</h3><p>Premium prawn with export specifications tailored to inquiry.</p><div class="product-bottom"><span class="product-price">USD 8.00 / kg<small>Indicative reference</small></span><button class="detail-button" type="button" data-open-product>Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></div>
+          </article>
+          <article class="product-card" data-name="Soft-Shell Crab" data-badge="Live / Frozen" data-price="Indicative: USD 7.50 / kg" data-desc="A sought-after delicacy for specialty seafood buyers. Trade inquiries can specify preferred grade, packing and live or frozen format." data-image="https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=900&q=85">
+            <div class="product-image"><img src="https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=700&q=80" alt="Crab prepared for seafood trade" loading="lazy" /><span class="product-tag">Marine · Live / Frozen</span></div>
+            <div class="product-info"><h3>Soft-Shell Crab</h3><p>A specialty product for premium retail and restaurant menus.</p><div class="product-bottom"><span class="product-price">USD 7.50 / kg<small>Indicative reference</small></span><button class="detail-button" type="button" data-open-product>Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></div>
+          </article>
+          <article class="product-card" data-name="Grouper" data-badge="Frozen" data-price="Indicative: USD 9.00 / kg" data-desc="A prized marine fish with firm, delicate flesh. Contact us to discuss whole-fish or portion specifications and seasonal supply." data-image="https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=900&q=85">
+            <div class="product-image"><img src="https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=700&q=80" alt="Marine fish ready for wholesale" loading="lazy" /><span class="product-tag">Marine · Frozen</span></div>
+            <div class="product-info"><h3>Grouper</h3><p>Firm, delicate flesh suited to premium seafood menus.</p><div class="product-bottom"><span class="product-price">USD 9.00 / kg<small>Indicative reference</small></span><button class="detail-button" type="button" data-open-product>Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></div>
+          </article>
+          <article class="product-card" data-name="Freshwater Prawn" data-badge="Frozen" data-price="Indicative: USD 6.50 / kg" data-desc="A versatile freshwater product for retail, foodservice and processing. Confirm count size, packing and supply timing with the trade desk." data-image="https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&w=900&q=85">
+            <div class="product-image"><img src="https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&w=700&q=80" alt="Freshwater prawns displayed for trade" loading="lazy" /><span class="product-tag">Freshwater · Frozen</span></div>
+            <div class="product-info"><h3>Freshwater Prawn</h3><p>A versatile freshwater product with packing options on request.</p><div class="product-bottom"><span class="product-price">USD 6.50 / kg<small>Indicative reference</small></span><button class="detail-button" type="button" data-open-product>Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Daily Wholesale Market Price Tracker -->
-    <section id="prices" class="max-w-7xl mx-auto py-12 px-4">
-      <h2 class="text-3xl font-bold mb-6 text-primary">Daily Wholesale Market Prices</h2>
-      <input type="text" id="price-search" placeholder="Search product..." class="border rounded px-3 py-2 mb-4 w-full sm:w-1/2" />
-      <div class="overflow-x-auto">
-        <table class="min-w-full bg-white shadow rounded">
-          <thead class="bg-primary text-white">
-            <tr>
-              <th class="px-4 py-2 text-left">Product (Burmese / English)</th>
-              <th class="px-4 py-2 text-left">Category</th>
-              <th class="px-4 py-2 text-left">Size / Spec</th>
-              <th class="px-4 py-2 text-left">Wholesale Price (MMK)</th>
-              <th class="px-4 py-2 text-left">Export Grade</th>
-            </tr>
-          </thead>
-          <tbody id="price-table-body" class="text-gray-700">
-            <tr class="border-t">
-              <td class="px-4 py-2">Rohu (Rohu)</td>
-              <td class="px-4 py-2">Freshwater</td>
-              <td class="px-4 py-2">30-35 cm</td>
-              <td class="px-4 py-2">8000</td>
-              <td class="px-4 py-2">Yes</td>
-            </tr>
-            <tr class="border-t bg-gray-50">
-              <td class="px-4 py-2">Hilsa (Ilish)</td>
-              <td class="px-4 py-2">Marine</td>
-              <td class="px-4 py-2">25-30 cm</td>
-              <td class="px-4 py-2">12000</td>
-              <td class="px-4 py-2">No</td>
-            </tr>
-            <!-- Add more static rows as needed -->
-          </tbody>
-        </table>
-      </div>
+    <section class="sourcing-band">
+      <div class="shell sourcing-inner"><div><h2>Looking for a specific catch?</h2><p>Tell us your target species, preferred format and destination. Our trade inquiry form helps start the conversation.</p></div><a class="button button-gold" href="#inquiry">Discuss your requirements <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
     </section>
 
-    <!-- Export Product Showcase -->
-    <section id="products" class="max-w-7xl mx-auto py-12 px-4">
-      <h2 class="text-3xl font-bold mb-6 text-primary">Export Product Showcase</h2>
-      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <!-- Card Template -->
-        <div class="bg-card rounded shadow hover:shadow-lg transition" data-name="Rohu" data-badge="Frozen" data-price="USD 3.5 / kg" data-desc="Freshwater catfish, high protein content, ideal for processing." data-image="https://images.unsplash.com/photo-1534483509719-3feaee7c30da?auto=format&fit=crop&w=600&q=80">
-          <img src="https://images.unsplash.com/photo-1534483509719-3feaee7c30da?auto=format&fit=crop&w=600&q=80" alt="Rohu" class="w-full h-40 object-cover rounded-t" loading="lazy" />
-          <div class="p-4">
-            <h3 class="font-semibold text-lg mb-1">Rohu</h3>
-            <span class="inline-block bg-secondary text-white text-xs px-2 py-1 rounded mb-2">Frozen</span>
-            <p class="text-sm mb-2">Freshwater catfish, high protein.</p>
-            <p class="font-bold text-accent mb-2">USD 3.5 / kg</p>
-            <button class="bg-primary text-white px-3 py-1 rounded hover:bg-primary/80" onclick="openProductModal(this.parentElement.parentElement)">View Details</button>
-          </div>
-        </div>
-        <div class="bg-card rounded shadow hover:shadow-lg transition" data-name="Hilsa" data-badge="Live" data-price="USD 5.0 / kg" data-desc="Premium marine fish, prized for its flavor." data-image="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80">
-          <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80" alt="Hilsa" class="w-full h-40 object-cover rounded-t" loading="lazy" />
-          <div class="p-4">
-            <h3 class="font-semibold text-lg mb-1">Hilsa</h3>
-            <span class="inline-block bg-secondary text-white text-xs px-2 py-1 rounded mb-2">Live</span>
-            <p class="text-sm mb-2">Premium marine fish.</p>
-            <p class="font-bold text-accent mb-2">USD 5.0 / kg</p>
-            <button class="bg-primary text-white px-3 py-1 rounded hover:bg-primary/80" onclick="openProductModal(this.parentElement.parentElement)">View Details</button>
-          </div>
-        </div>
-        <div class="bg-card rounded shadow hover:shadow-lg transition" data-name="Tiger Sea Prawn" data-badge="Frozen" data-price="USD 8.0 / kg" data-desc="Large tiger shrimp, ideal for export." data-image="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=600&q=80">
-          <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=600&q=80" alt="Tiger Sea Prawn" class="w-full h-40 object-cover rounded-t" loading="lazy" />
-          <div class="p-4">
-            <h3 class="font-semibold text-lg mb-1">Tiger Sea Prawn</h3>
-            <span class="inline-block bg-secondary text-white text-xs px-2 py-1 rounded mb-2">Frozen</span>
-            <p class="text-sm mb-2">Large shrimp for export.</p>
-            <p class="font-bold text-accent mb-2">USD 8.0 / kg</p>
-            <button class="bg-primary text-white px-3 py-1 rounded hover:bg-primary/80" onclick="openProductModal(this.parentElement.parentElement)">View Details</button>
-          </div>
-        </div>
-        <div class="bg-card rounded shadow hover:shadow-lg transition" data-name="Soft‑Shell Crab" data-badge="Live" data-price="USD 7.5 / kg" data-desc="Soft‑shell crabs, delicacy for high‑end markets." data-image="https://images.unsplash.com/photo-1559742811-822863c46f83?auto=format&fit=crop&w=600&q=80">
-          <img src="https://images.unsplash.com/photo-1559742811-822863c46f83?auto=format&fit=crop&w=600&q=80" alt="Soft‑Shell Crab" class="w-full h-40 object-cover rounded-t" loading="lazy" />
-          <div class="p-4">
-            <h3 class="font-semibold text-lg mb-1">Soft‑Shell Crab</h3>
-            <span class="inline-block bg-secondary text-white text-xs px-2 py-1 rounded mb-2">Live</span>
-            <p class="text-sm mb-2">Delicacy for markets.</p>
-            <p class="font-bold text-accent mb-2">USD 7.5 / kg</p>
-            <button class="bg-primary text-white px-3 py-1 rounded hover:bg-primary/80" onclick="openProductModal(this.parentElement.parentElement)">View Details</button>
-          </div>
-        </div>
-        <div class="bg-card rounded shadow hover:shadow-lg transition" data-name="Grouper" data-badge="Frozen" data-price="USD 9.0 / kg" data-desc="White‑fleshed grouper, excellent texture." data-image="https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=600&q=80">
-          <img src="https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=600&q=80" alt="Grouper" class="w-full h-40 object-cover rounded-t" loading="lazy" />
-          <div class="p-4">
-            <h3 class="font-semibold text-lg mb-1">Grouper</h3>
-            <span class="inline-block bg-secondary text-white text-xs px-2 py-1 rounded mb-2">Frozen</span>
-            <p class="text-sm mb-2">White‑fleshed fish.</p>
-            <p class="font-bold text-accent mb-2">USD 9.0 / kg</p>
-            <button class="bg-primary text-white px-3 py-1 rounded hover:bg-primary/80" onclick="openProductModal(this.parentElement.parentElement)">View Details</button>
-          </div>
-        </div>
-        <div class="bg-card rounded shadow hover:shadow-lg transition" data-name="Freshwater Prawn" data-badge="Frozen" data-price="USD 6.5 / kg" data-desc="Freshwater prawn, great for processing." data-image="https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&w=600&q=80">
-          <img src="https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&w=600&q=80" alt="Freshwater Prawn" class="w-full h-40 object-cover rounded-t" loading="lazy" />
-          <div class="p-4">
-            <h3 class="font-semibold text-lg mb-1">Freshwater Prawn</h3>
-            <span class="inline-block bg-secondary text-white text-xs px-2 py-1 rounded mb-2">Frozen</span>
-            <p class="text-sm mb-2">Ideal for processing.</p>
-            <p class="font-bold text-accent mb-2">USD 6.5 / kg</p>
-            <button class="bg-primary text-white px-3 py-1 rounded hover:bg-primary/80" onclick="openProductModal(this.parentElement.parentElement)">View Details</button>
-          </div>
+    <section class="section gallery-section" id="gallery">
+      <div class="shell">
+        <div class="section-heading"><div><div class="section-kicker">A view of the supply chain</div><h2 class="section-title">From the water.</h2></div><p class="section-desc">A glimpse of the landscapes, harvests and handling behind the seafood trade.</p></div>
+        <div class="gallery-grid">
+          <button class="gallery-item" type="button" data-gallery-image="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1400&q=85" aria-label="View aquaculture landscape"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80" alt="Rural aquaculture landscape" loading="lazy" /><span class="gallery-label">Aquaculture landscapes <i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></span></button>
+          <button class="gallery-item" type="button" data-gallery-image="https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=1400&q=85" aria-label="View seafood processing"><img src="https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=800&q=80" alt="Seafood prepared for processing" loading="lazy" /><span class="gallery-label">Seafood processing <i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></span></button>
+          <button class="gallery-item" type="button" data-gallery-image="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85" aria-label="View cold storage and logistics"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Cold storage and logistics facility" loading="lazy" /><span class="gallery-label">Cold chain & logistics <i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></span></button>
+          <button class="gallery-item" type="button" data-gallery-image="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1400&q=85" aria-label="View marine harvesting"><img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="Open sea and marine waters" loading="lazy" /><span class="gallery-label">Marine waters <i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></span></button>
         </div>
       </div>
     </section>
 
-    <!-- Photo Gallery -->
-    <section id="gallery" class="max-w-7xl mx-auto py-12 px-4">
-      <h2 class="text-3xl font-bold mb-6 text-primary">Photo Gallery</h2>
-      <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80" alt="Aquaculture Farming" class="w-full h-48 object-cover rounded cursor-pointer" loading="lazy" onclick="openLightbox(this.src, this.alt)" />
-        <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=800&q=80" alt="Seafood Processing" class="w-full h-48 object-cover rounded cursor-pointer" loading="lazy" onclick="openLightbox(this.src, this.alt)" />
-        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Cold Storage" class="w-full h-48 object-cover rounded cursor-pointer" loading="lazy" onclick="openLightbox(this.src, this.alt)" />
-        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="Marine Harvesting" class="w-full h-48 object-cover rounded cursor-pointer" loading="lazy" onclick="openLightbox(this.src, this.alt)" />
+    <section class="section inquiry-section" id="inquiry">
+      <div class="shell inquiry-layout">
+        <div><div class="section-kicker">For buyers & partners</div><h2 class="section-title">Let's talk seafood trade.</h2><p class="inquiry-copy">Share a few details about your business and what you are sourcing. Include the species, format and approximate quantity so your request is clear.</p><div class="contact-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>This prototype form is for demonstration only. Submissions are not transmitted or stored.</span></div></div>
+        <form class="inquiry-form" id="inquiry-form">
+          <div class="field"><label for="full-name">Full name</label><input id="full-name" name="fullName" type="text" placeholder="Your name" autocomplete="name" required /></div>
+          <div class="field"><label for="company">Company</label><input id="company" name="company" type="text" placeholder="Business name" autocomplete="organization" required /></div>
+          <div class="field"><label for="email">Business email</label><input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required /></div>
+          <div class="field"><label for="country">Country</label><input id="country" name="country" type="text" placeholder="Destination country" autocomplete="country-name" required /></div>
+          <div class="field"><label for="product">Product of interest</label><select id="product" name="product" required><option value="" disabled selected>Select a species</option><option>Rohu</option><option>Hilsa</option><option>Tiger Sea Prawn</option><option>Soft-Shell Crab</option><option>Grouper</option><option>Freshwater Prawn</option><option>Other / multiple products</option></select></div>
+          <div class="field"><label for="quantity">Estimated quantity</label><input id="quantity" name="quantity" type="text" placeholder="e.g. 2 tonnes / month" required /></div>
+          <button class="button button-gold form-submit" type="submit">Prepare inquiry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+          <p class="form-disclaimer">Demo only — this form does not send or store your information.</p>
+        </form>
       </div>
-    </section>
-
-    <!-- B2B Trade Inquiry Form -->
-    <section id="inquiry" class="max-w-2xl mx-auto py-12 px-4">
-      <h2 class="text-3xl font-bold mb-6 text-primary">B2B Trade Inquiry</h2>
-      <form id="inquiry-form" class="grid gap-4" onsubmit="submitForm(event)">
-        <input type="text" name="fullName" placeholder="Full Name" class="border rounded px-3 py-2" required />
-        <input type="text" name="company" placeholder="Company Name" class="border rounded px-3 py-2" required />
-        <input type="email" name="email" placeholder="Email" class="border rounded px-3 py-2" required />
-        <input type="text" name="country" placeholder="Country" class="border rounded px-3 py-2" required />
-        <input type="text" name="product" placeholder="Product Interested" class="border rounded px-3 py-2" required />
-        <input type="number" name="quantity" placeholder="Estimated Quantity" class="border rounded px-3 py-2" min="1" required />
-        <button type="submit" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary/80">Submit Inquiry</button>
-      </form>
     </section>
   </main>
 
-  <!-- Product Detail Modal -->
-  <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-20">
-    <div class="bg-white rounded-lg max-w-lg w-full p-6 relative">
-      <button class="absolute top-2 right-2 text-gray-600" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
-      <img id="modal-image" src="" alt="" class="w-full h-48 object-cover rounded mb-4" />
-      <h3 id="modal-name" class="text-2xl font-semibold mb-2"></h3>
-      <span id="modal-badge" class="inline-block bg-secondary text-white text-xs px-2 py-1 rounded mb-2"></span>
-      <p id="modal-desc" class="mb-2"></p>
-      <p id="modal-price" class="font-bold text-accent"></p>
-    </div>
+  <footer class="site-footer"><div class="shell footer-inner"><span class="footer-brand">MYANMAR FISHERY</span><span>Connecting Myanmar seafood with the wider market.</span><span>© 2026 Myanmar Fishery</span></div></footer>
+
+  <div class="modal-backdrop" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-name" hidden>
+    <div class="modal-card"><button class="modal-close" type="button" data-close-modal aria-label="Close product details"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><img id="modal-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" /><div class="modal-content"><span class="product-tag" id="modal-badge"></span><h2 id="modal-name"></h2><p id="modal-desc"></p><p class="modal-price" id="modal-price"></p><a class="button button-gold" href="#inquiry" id="modal-inquiry">Ask about this product <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div>
   </div>
-
-  <!-- Lightbox Viewer -->
-  <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-30" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-full rounded" />
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-5 right-5 bg-primary text-white px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300"></div>
-
- <footer class="bg-primary text-white py-4 mt-12">
-    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center text-sm">
-        <div>©2026 Myanmar Fishery. All rights reserved.</div>
-        <div>Developed By Hsu Pan Htwar 22/10/2026</div>
-    </div>
-</footer>
+  <div class="modal-backdrop" id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery image preview" hidden><button class="modal-close" type="button" data-close-modal aria-label="Close image preview"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button><img class="lightbox-image" id="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" /></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
   <script>
-    // Mobile navigation toggle
-    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-      const nav = document.getElementById('nav-links');
-      nav.classList.toggle('hidden');
+    const menuButton = document.getElementById('mobile-menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinks.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }
     });
 
-    // Live search for price table
-    document.getElementById('price-search').addEventListener('input', function () {
-      const filter = this.value.toLowerCase();
-      const rows = document.querySelectorAll('#price-table-body tr');
-      rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(filter) ? '' : 'none';
+    document.getElementById('price-search').addEventListener('input', (event) => {
+      const query = event.target.value.trim().toLocaleLowerCase();
+      document.querySelectorAll('#price-table-body tr').forEach((row) => {
+        row.hidden = !row.textContent.toLocaleLowerCase().includes(query);
       });
     });
 
-    // Product modal
-    function openProductModal(card) {
-      document.getElementById('modal-image').src = card.dataset.image;
-      document.getElementById('modal-name').textContent = card.dataset.name;
-      document.getElementById('modal-badge').textContent = card.dataset.badge;
-      document.getElementById('modal-desc').textContent = card.dataset.desc;
-      document.getElementById('modal-price').textContent = card.dataset.price;
-      document.getElementById('product-modal').classList.remove('hidden');
-    }
-    function closeProductModal() {
-      document.getElementById('product-modal').classList.add('hidden');
+    const productModal = document.getElementById('product-modal');
+    const lightbox = document.getElementById('lightbox');
+    let lastFocusedElement;
+
+    function showModal(modal) {
+      lastFocusedElement = document.activeElement;
+      modal.hidden = false;
+      modal.querySelector('button').focus();
+      document.body.style.overflow = 'hidden';
     }
 
-    // Lightbox
-    function openLightbox(src, alt) {
-      const img = document.getElementById('lightbox-img');
-      img.src = src;
-      img.alt = alt;
-      document.getElementById('lightbox').classList.remove('hidden');
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.add('hidden');
+    function closeModal(modal) {
+      modal.hidden = true;
+      if (productModal.hidden && lightbox.hidden) document.body.style.overflow = '';
+      if (lastFocusedElement) lastFocusedElement.focus();
     }
 
-    // Form submission
-    function submitForm(e) {
-      e.preventDefault();
-      const form = e.target;
-      // Simple validation – all fields have `required` attribute already.
-      // Here we just display a toast.
-      showToast('Thank you! We will contact you soon.');
-      form.reset();
-    }
+    document.querySelectorAll('[data-open-product]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const card = button.closest('.product-card');
+        document.getElementById('modal-image').src = card.dataset.image;
+        document.getElementById('modal-image').alt = card.dataset.name;
+        document.getElementById('modal-name').textContent = card.dataset.name;
+        document.getElementById('modal-badge').textContent = card.dataset.badge;
+        document.getElementById('modal-desc').textContent = card.dataset.desc;
+        document.getElementById('modal-price').textContent = card.dataset.price;
+        showModal(productModal);
+      });
+    });
 
-    // Toast helper
-    function showToast(message) {
+    document.querySelectorAll('[data-gallery-image]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const image = button.querySelector('img');
+        const preview = document.getElementById('lightbox-img');
+        preview.src = button.dataset.galleryImage;
+        preview.alt = image.alt;
+        showModal(lightbox);
+      });
+    });
+
+    document.querySelectorAll('[data-close-modal]').forEach((button) => {
+      button.addEventListener('click', () => closeModal(button.closest('.modal-backdrop')));
+    });
+    document.getElementById('modal-inquiry').addEventListener('click', () => closeModal(productModal));
+    [productModal, lightbox].forEach((modal) => {
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal(modal);
+      });
+    });
+    document.addEventListener('keydown', (event) => {
+      const activeModal = !productModal.hidden ? productModal : !lightbox.hidden ? lightbox : null;
+      if (event.key === 'Tab' && activeModal) {
+        const focusable = [...activeModal.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+      if (event.key === 'Escape') {
+        if (!productModal.hidden) closeModal(productModal);
+        else if (!lightbox.hidden) closeModal(lightbox);
+      }
+    });
+
+    let toastTimer;
+    document.getElementById('inquiry-form').addEventListener('submit', (event) => {
+      event.preventDefault();
       const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.remove('opacity-0');
-      toast.classList.add('opacity-100');
-      setTimeout(() => {
-        toast.classList.remove('opacity-100');
-        toast.classList.add('opacity-0');
-      }, 3000);
-    }
+      toast.textContent = 'Thanks — this demo does not send or save inquiries yet.';
+      toast.hidden = false;
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => { toast.hidden = true; }, 5000);
+      event.currentTarget.reset();
+    });
   </script>
 </body>
 </html>
